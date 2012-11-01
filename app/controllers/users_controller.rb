@@ -15,8 +15,13 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
-    @title = "Sign up"
+    if signed_in?
+      flash[:notice] = "You already signed up!"
+      redirect_to root_path
+    else
+      @user = User.new
+      @title = "Sign up"
+    end
   end
   
   def create
